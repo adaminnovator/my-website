@@ -1,0 +1,176 @@
+---
+layout: default
+title: Adam's GitHub Pages
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam's GitHub Pages</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        .file-item:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .nested {
+            margin-left: 20px;
+            padding-left: 10px;
+            border-left: 2px solid #ccc;
+        }
+        
+        .icon {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Adam's GitHub Pages</h1>
+        <input type="text" id="search-box" placeholder="Search files...">
+        <h2>Docs</h2>
+        <ul id="file-list" class="loading">Loading...</ul>
+    </div>
+<script>
+    async function fetchRepoFiles() {
+        const username = "adaminnovator";
+        const repo = "my-website";
+        const branch = "main";
+        const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/docs?ref=${branch}`;
+
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) throw new Error(`GitHub API 请求失败: ${response.status}`);
+            const files = await response.json();
+            const fileList = document.getElementById("file-list");
+            fileList.innerHTML = "";
+
+            if (files.length === 0) {
+                fileList.innerHTML = "<p class='error'>没有找到文件</p>";
+                return;
+            }
+
+            // Define the files to hide
+            const filesToHide = ["_config.yml", "index.html", "default.html", "assets"];
+
+            // Separate folders from files
+            const folders = files.filter(file => file.type === 'dir' && !filesToHide.includes(file.name));
+            const regularFiles = files.filter(file => file.type === 'file' && !filesToHide.includes(file.name));
+
+            // Add folders at the top
+            folders.forEach(file => {
+                const li = document.createElement("li");
+                li.classList.add("file-item");
+                li.setAttribute("data-file-name", file.name.toLowerCase());  // Add data-file-name for filtering
+
+                const icon = document.createElement("span");
+                icon.classList.add("icon");
+                icon.textContent = "📁";  // Emoji for folder
+
+                const a = document.createElement("a");
+                a.href = `https://${username}.github.io/${repo}/${file.name}/index.html`; // Link to folder's index.html
+                a.textContent = file.name;
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+
+                li.appendChild(icon);
+                li.appendChild(a);
+                fileList.appendChild(li);
+            });
+
+            // Add files after folders
+            regularFiles.forEach(file => {
+                const li = document.createElement("li");
+                li.classList.add("file-item");
+                li.setAttribute("data-file-name", file.name.toLowerCase());  // Add data-file-name for filtering
+
+                const icon = document.createElement("span");
+                icon.classList.add("icon");
+
+                const a = document.createElement("a");
+                a.href = file.name.endsWith(".md") 
+                    ? `https://${username}.github.io/${repo}/${file.name.replace('.md', '.html')}` 
+                    : `https://${username}.github.io/${repo}/${file.name}`;
+                a.textContent = file.name;
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+
+                if (file.name.endsWith(".html")) {
+                    icon.textContent = "🌐";
+                } else if (file.name.endsWith(".pdf")) {
+                    icon.textContent = "📄";
+                } else if (file.name.endsWith(".md")) {
+                    icon.textContent = "📝";
+                }
+
+                li.appendChild(icon);
+                li.appendChild(a);
+                fileList.appendChild(li);
+            });
+        } catch (error) {
+            console.error("Error fetching file list:", error);
+            document.getElementById("file-list").innerHTML = `<p class='error'>加载文件列表失败，请稍后重试。</p>`;
+        }
+    }
+
+    function filterFiles() {
+        const searchInput = document.getElementById("search-box").value.toLowerCase();
+        const fileItems = document.querySelectorAll(".file-item");
+
+        fileItems.forEach(item => {
+            const fileName = item.getAttribute("data-file-name");
+            if (fileName && fileName.includes(searchInput)) {
+                item.style.display = "flex";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+
+    document.getElementById("search-box").addEventListener("input", filterFiles);
+
+    fetchRepoFiles();
+</script>
+
+</body>
+</html>
