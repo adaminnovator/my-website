@@ -1,0 +1,369 @@
+# GTFS Example Feed Documentation
+This document provides a simple, easy-to-understand overview of the GTFS (General Transit Feed Specification) example feed from Google Developers. It includes comma-delimited data samples, field descriptions, and key explanations for each GTFS file.
+
+## Overview
+The GTFS example feed consists of multiple comma-separated value (CSV) files that define transit system details (e.g., agencies, routes, stops, schedules). The sample files below illustrate the structure and content of a standard GTFS feed. A complete, downloadable version of the feed is available for practical use.
+
+## GTFS File Details
+
+### 1. agency.txt
+**Purpose**: Defines basic information about the transit agency.
+| Field | Description |
+|-------|-------------|
+| agency_id | Unique identifier for the agency |
+| agency_name | Full name of the transit agency |
+| agency_url | Official website URL of the agency |
+| agency_timezone | Timezone of the agency (e.g., America/Los_Angeles, PST) |
+| agency_phone | Contact phone number of the agency (optional) |
+| agency_lang | Primary language of the agency (ISO 639-1 code, e.g., en) |
+
+**Sample Data**:
+```
+agency_id,agency_name,agency_url,agency_timezone,agency_phone,agency_lang
+FunBus,The Fun Bus,http://www.thefunbus.org,America/Los_Angeles,(310) 555-0222,en
+agency001,Transit Agency,http://www.transitcommuterbus.com/,PST,en
+```
+
+### 2. stops.txt
+**Purpose**: Defines transit stops, stations, entrances, and other locations.
+| Field | Description |
+|-------|-------------|
+| stop_id | Unique identifier for the stop |
+| level_id | Identifier for the level (e.g., floor) of the stop (optional) |
+| stop_name | Name of the stop |
+| stop_lat | Latitude of the stop (WGS84) |
+| stop_lon | Longitude of the stop (WGS84) |
+| location_type | Type of location (see icon key below) |
+| parent_station | Parent station ID (for child locations like platforms/entrances) |
+
+**Location Type Icon Key**:
+- ⦿ 0: Platform
+- ⦿ 1: Station
+- ⦿ 2: Entrance/Exit
+- ⦿ 3: Generic Node
+- ⦿ 4: Boarding Area
+
+**Sample Data**:
+```
+stop_id,level_id,stop_name,stop_lat,stop_lon,location_type,parent_station
+F12,,5 Av/53 St,40.760167,-73.975224,1,
+E1,L0,5 Av/53 St SW,40.760474,-73.976099,2,F12
+E2,L0,5 Av/53 St NE,40.76035,-73.97546,2,F12
+E3,L0,5 Av/53 St SE,40.760212,-73.975512,2,F12
+E4,L0,Madison/53 St NE,40.759612,-73.973731,2,F12
+E5,L0,Madison/53 St SE,40.759491,-73.973820,2,F12
+N1,L1,,40.760457,-73.975912,3,F12
+N2,L1,,40.760531,-73.976111,3,F12
+N3,L1,,40.759746,-73.974203,3,F12
+N4,L1,,40.759679,-73.974064,3,F12
+F12S,,5 Av/53 St,40.760167,-73.975224,0,F12
+B1,L2,,40.759746,-73.974203,4,F12S
+B3,L2,,40.759828,-73.974442,4,F12S
+F12N,,5 Av/53 St,40.760167,-73.975224,0,F12
+B2,L3,,40.760457,-73.975912,4,F12N
+B4,L3,,40.760375,-73.975729,4,F12N
+```
+
+### 3. routes.txt
+**Purpose**: Defines transit routes (e.g., bus lines, train lines).
+| Field | Description |
+|-------|-------------|
+| route_id | Unique identifier for the route |
+| route_short_name | Short name of the route (e.g., 17) |
+| route_long_name | Full name of the route (e.g., Mission) |
+| route_desc | Description of the route (optional) |
+| route_type | Type of route (e.g., 3 = bus) |
+
+**Sample Data**:
+```
+route_id,route_short_name,route_long_name,route_desc,route_type
+A,17,Mission,"The ""A"" route travels from lower Mission to Downtown.",3
+```
+
+### 4. trips.txt
+**Purpose**: Defines individual trips (specific runs of a route).
+| Field | Description |
+|-------|-------------|
+| route_id | Reference to the route this trip belongs to |
+| service_id | Reference to the service schedule (from calendar.txt) |
+| trip_id | Unique identifier for the trip |
+| trip_headsign | Destination displayed to passengers |
+| block_id | Identifier for a group of consecutive trips (optional) |
+
+**Sample Data**:
+```
+route_id,service_id,trip_id,trip_headsign,block_id
+A,WE,AWE1,Downtown,1
+A,WE,AWE2,Downtown,2
+```
+
+### 5. stop_times.txt
+**Purpose**: Defines arrival/departure times for stops on each trip.
+| Field | Description |
+|-------|-------------|
+| trip_id | Reference to the trip |
+| arrival_time | Arrival time at the stop (HH:MM:SS format) |
+| departure_time | Departure time from the stop (HH:MM:SS format) |
+| stop_id | Reference to the stop |
+| stop_sequence | Order of the stop in the trip (starting at 1) |
+| pickup_type | Rules for passenger pickup (0 = allowed, 1 = not allowed, etc.) |
+| drop_off_type | Rules for passenger drop-off (0 = allowed, 3 = not allowed, etc.) |
+
+**Sample Data**:
+```
+trip_id,arrival_time,departure_time,stop_id,stop_sequence,pickup_type,drop_off_type
+AWE1,0:06:10,0:06:10,S1,1,0,0
+AWE1,,,S2,2,1,3
+AWE1,0:06:20,0:06:30,S3,3,0,0
+AWE1,,,S5,4,0,0
+AWE1,0:06:45,0:06:45,S6,5,0,0
+AWD1,0:06:10,0:06:10,S1,1,0,0
+AWD1,,,S2,2,0,0
+AWD1,0:06:20,0:06:20,S3,3,0,0
+AWD1,,,S4,4,0,0
+AWD1,,,S5,5,0,0
+AWD1,0:06:45,0:06:45,S6,6,0,0
+```
+
+### 6. calendar.txt
+**Purpose**: Defines the days of the week a service runs (base schedule).
+| Field | Description |
+|-------|-------------|
+| service_id | Unique identifier for the service schedule |
+| monday | 1 = service runs on Mondays; 0 = no service |
+| tuesday | 1 = service runs on Tuesdays; 0 = no service |
+| wednesday | 1 = service runs on Wednesdays; 0 = no service |
+| thursday | 1 = service runs on Thursdays; 0 = no service |
+| friday | 1 = service runs on Fridays; 0 = no service |
+| saturday | 1 = service runs on Saturdays; 0 = no service |
+| sunday | 1 = service runs on Sundays; 0 = no service |
+| start_date | Start date of the service (YYYYMMDD format) |
+| end_date | End date of the service (YYYYMMDD format) |
+
+**Sample Data**:
+```
+service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date
+WE,0,0,0,0,0,1,1,20060701,20060731
+WD,1,1,1,1,1,0,0,20060701,20060731
+```
+
+### 7. calendar_dates.txt
+**Purpose**: Defines exceptions to the base schedule (e.g., holidays).
+| Field | Description |
+|-------|-------------|
+| service_id | Reference to the service schedule |
+| date | Date of the exception (YYYYMMDD format) |
+| exception_type | 1 = service is added on this date; 2 = service is removed |
+
+**Explanation**: This example shows exceptions for the 2006 Independence Day holiday. On July 3 and 4 (weekday dates), regular weekday service (`service_id=WD`) is suspended (`exception_type=2`), and weekend service (`service_id=WE`) is added (`exception_type=1`).
+
+**Sample Data**:
+```
+service_id,date,exception_type
+WD,20060703,2
+WE,20060703,1
+WD,20060704,2
+WE,20060704,1
+```
+
+### 8. fare_attributes.txt
+**Purpose**: Defines fare prices and rules.
+| Field | Description |
+|-------|-------------|
+| fare_id | Unique identifier for the fare |
+| price | Fare amount (in the specified currency) |
+| currency_type | Currency code (ISO 4217, e.g., USD) |
+| payment_method | 0 = payment at time of boarding; 1 = payment before boarding |
+| transfers | Number of allowed transfers (0 = no transfers) |
+| transfer_duration | Time window for transfers (in seconds, optional) |
+
+**Sample Data**:
+```
+fare_id,price,currency_type,payment_method,transfers,transfer_duration
+1,0.00,USD,0,0,0
+2,0.50,USD,0,0,0
+3,1.50,USD,0,0,0
+4,2.00,USD,0,0,0
+5,2.50,USD,0,0,0
+```
+
+### 9. fare_rules.txt
+**Purpose**: Associates fares with routes, origins, destinations, or zones.
+| Field | Description |
+|-------|-------------|
+| fare_id | Reference to the fare (from fare_attributes.txt) |
+| route_id | Route the fare applies to (optional) |
+| origin_id | Origin zone/station (optional) |
+| destination_id | Destination zone/station (optional) |
+| contains_id | Intermediate zone/station (optional) |
+
+**Sample Data**:
+```
+fare_id,route_id,origin_id,destination_id,contains_id
+a,TSW,1,1,
+a,TSE,1,1,
+a,GRT,1,1,
+a,GRJ,1,1,
+a,SVJ,1,1,
+a,JSV,1,1,
+a,GRT,2,4,
+a,GRJ,4,2,
+b,GRT,3,3,
+c,GRT,,,6
+```
+
+### 10. shapes.txt
+**Purpose**: Defines the geographic path of a route (e.g., bus/train path).
+| Field | Description |
+|-------|-------------|
+| shape_id | Unique identifier for the shape |
+| shape_pt_lat | Latitude of a point on the shape (WGS84) |
+| shape_pt_lon | Longitude of a point on the shape (WGS84) |
+| shape_pt_sequence | Order of the point in the shape (starting at 1) |
+| shape_dist_traveled | Distance from the start of the shape to this point (optional) |
+
+**Sample Data**:
+```
+shape_id,shape_pt_lat,shape_pt_lon,shape_pt_sequence,shape_dist_traveled
+A_shp,37.61956,-122.48161,1,0
+A_shp,37.64430,-122.41070,2,6.8310
+A_shp,37.65863,-122.30839,3,15.8765
+```
+
+### 11. pathways.txt
+**Purpose**: Defines pathways between locations (e.g., stairs, escalators between stops).
+| Field | Description |
+|-------|-------------|
+| pathway_id | Unique identifier for the pathway |
+| from_stop_id | Starting stop/location of the pathway |
+| to_stop_id | Ending stop/location of the pathway |
+| pathway_mode | Type of pathway (see icon key below) |
+| is_bidirectional | 1 = pathway can be used in both directions; 0 = one-way |
+
+**Pathway Mode Icon Key**:
+- ↔ 1: Walkway
+- ↔ 2: Stairs
+- → 4: Escalator
+- → 6: Fare Gate
+- → 7: Exit Fare Gate
+
+**Sample Data**:
+```
+pathway_id,from_stop_id,to_stop_id,pathway_mode,is_bidirectional
+E1N1,E1,N1,2,1
+E2N1,E2,N1,2,1
+E3N1,E3,N1,2,1
+N1-N2,N1,N2,6,1
+N2-N1,N2,N1,7,1
+N2N3,N2,N3,2,1
+N2-B1,N2,B1,4,0
+B1-N2,B1,N2,4,0
+B1B2,B1,B2,2,1
+B1B3,B1,B3,1,1
+B2B4,B2,B4,1,1
+E4N3,E4,N3,2,1
+E5N3,E5,N3,2,1
+N3-N4,N3,N4,6,1
+N4-N3,N4,N3,7,1
+N4B3,N4,B3,2,1
+N4-B3,N4,B3,4,0
+B3-N4,B3,N4,4,0
+B3B4,B3,B4,2,1
+```
+
+### 12. frequencies.txt
+**Purpose**: Defines headways (time between trips) for high-frequency routes.
+| Field | Description |
+|-------|-------------|
+| trip_id | Reference to the trip (template for the frequency-based service) |
+| start_time | Start time of the frequency period (HH:MM:SS format) |
+| end_time | End time of the frequency period (HH:MM:SS format) |
+| headway_secs | Time between consecutive trips (in seconds) |
+
+**Sample Data**:
+```
+trip_id,start_time,end_time,headway_secs
+AWE1,05:30:00,06:30:00,300
+AWE1,06:30:00,20:30:00,180
+AWE1,20:30:00,28:00:00,420
+```
+
+### 13. transfers.txt
+**Purpose**: Defines transfer rules between stops (e.g., minimum transfer time).
+| Field | Description |
+|-------|-------------|
+| from_stop_id | Starting stop of the transfer |
+| to_stop_id | Ending stop of the transfer |
+| transfer_type | 0 = recommended transfer; 1 = timed transfer; 2 = minimum time transfer; 3 = no transfer |
+| min_transfer_time | Minimum time required for the transfer (in seconds, optional) |
+
+**Sample Data**:
+```
+from_stop_id,to_stop_id,transfer_type,min_transfer_time
+S6,S7,2,300
+S7,S6,3,
+S23,S7,1,
+```
+
+### 14. levels.txt
+**Purpose**: Defines levels (floors) within stations.
+| Field | Description |
+|-------|-------------|
+| level_id | Unique identifier for the level |
+| level_index | Numeric index for ordering levels (e.g., -1 = mezzanine, 0 = street) |
+| level_name | Name of the level (optional) |
+| elevation | Elevation of the level (in meters, optional) |
+
+**Sample Data**:
+```
+level_id,level_index,level_name,elevation
+L0,0,Street,0
+L1,-1,Mezzanine,-6
+L2,-2,Southbound,-18
+L3,-3,Northbound,-24
+```
+
+### 15. translations.txt
+**Purpose**: Provides translations for text fields (e.g., stop names in multiple languages).
+| Field | Description |
+|-------|-------------|
+| table_name | Name of the GTFS table with the field to translate (e.g., stops) |
+| field_name | Name of the field to translate (e.g., stop_name) |
+| language | Language code (ISO 639-1, e.g., en, fr, zh) |
+| translation | Translated text |
+| record_id | Unique ID of the record in the original table (e.g., stopid000001) |
+
+**Sample Data**:
+```
+table_name,field_name,language,translation,record_id
+stops,stop_name,en,Tokyo Station,stopid000001
+stops,stop_name,fr,Gare de Tokyo,stopid000001
+stops,stop_name,zh,東京站,stopid000001
+```
+
+### 16. attributions.txt
+**Purpose**: Defines organizations responsible for producing or operating the transit service.
+| Field | Description |
+|-------|-------------|
+| attribution_id | Unique identifier for the attribution |
+| is_producer | 1 = organization produces the GTFS feed; 0 = no |
+| is_operator | 1 = organization operates the transit service; 0 = no |
+| organization_name | Name of the organization |
+| agency_id | Reference to the agency (optional) |
+
+**Sample Data**:
+```
+attribution_id,is_producer,is_operator,organization_name,agency_id
+attribution001,1,0,Transit Feed Solutions USA,agency001
+attribution002,0,1,Transit Bus Operations USA,agency001
+```
+
+## Key Notes
+- All files are comma-delimited (CSV) and use standard GTFS field names.
+- Optional fields are left blank (e.g., `agency_phone` in the second `agency.txt` entry).
+- Time values use HH:MM:SS format (24-hour clock; times exceeding 24:00:00 are allowed for trips spanning midnight).
+- Date values use YYYYMMDD format (e.g., 20060701 = July 1, 2006).
+- The sample files are not all related to the same transit system (for demonstration purposes only). A complete, consistent GTFS feed is available for download from the original webpage.
+
+Last updated: 2024-10-16 UTC  
+Source: [Google Developers GTFS Example Feed](https://developers.google.com/transit/gtfs/examples/gtfs-feed)
