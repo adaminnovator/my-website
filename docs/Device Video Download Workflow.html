@@ -1,0 +1,72 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Device Video Download Workflow</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #3498db; margin-top: 30px; }
+        h3 { color: #2980b9; margin-top: 20px; }
+        ol { margin-left: 20px; padding-left: 10px; }
+        li { margin: 10px 0; }
+        .path { font-family: monospace; color: #e74c3c; }
+    </style>
+</head>
+<body>
+    <h1>Device Video Download Workflow</h1>
+
+    <h2>Download Methods</h2>
+    <ol>
+        <li>Automatic Download of Alarm Evidence</li>
+        <li>Manual Download of Alarm Evidence</li>
+        <li>Manual Video Clipping Download</li>
+        <li>Scheduled Task Clipping Download</li>
+        <li>Download While Viewing and Recording</li>
+    </ol>
+
+    <h2>Instructions for Download Methods</h2>
+
+    <h3>1. Automatic Download of Alarm Evidence</h3>
+    <ol>
+        <li>In <span class="path">FTManager ￫ Alarm Management ￫ Alarm Upload</span>, configure the evidence return settings: 
+            <ol type="a">
+                <li>set the alarm type return channels for video, images, and black-box data;</li>
+                <li>select the applicable fleet or vehicle.</li>
+            </ol>
+        </li>
+        <li>When the device triggers the corresponding alarm, a related evidence download task is created, and the evidence video can be viewed in <span class="path">FTVision ￫ Evidence-Alarm</span>.</li>
+    </ol>
+
+    <h3>2. Manual Download of Alarm Evidence</h3>
+    <ol>
+        <li>In <span class="path">FTVision ￫ Evidence-Alarm</span>, select an alarm without evidence video and open its details.</li>
+        <li>In the video section, click <strong>Download Video</strong>, set the return channel, video duration, and other parameters to create a manual evidence download task.</li>
+    </ol>
+
+    <h3>3. Manual Video Clipping Download</h3>
+    <ol>
+        <li>In <span class="path">FTVision ￫ Evidence ￫ Video Playback</span>, select the vehicle device, wait for video loading, click the <strong>Clip</strong> button in the player controls, fill in the clip name, duration, storage, stream type, etc., to create a clipping task, which is viewable in <span class="path">FTVision ￫ Evidence ￫ Video Library</span>.</li>
+        <li>In <span class="path">FTVision ￫ Evidence ￫ Video Library</span>, click <strong>Create</strong> to open the clipping drawer, choose the vehicle device, set the video name, duration, stream type, etc., and create a clipping task that appears in the same <span class="path">Video Library</span>.</li>
+        <li>In <span class="path">FTVision ￫ Live View ￫ Vehicle Monitoring</span>, use <strong>Single Vehicle Escort</strong> from the extra actions, wait for the video to load, click the <strong>Clip</strong> button, configure the video name, duration, stream type, etc., and the task will be visible in the <span class="path">Video Library</span>.</li>
+    </ol>
+
+    <h3>4. Scheduled Task Clipping Download</h3>
+    <ol>
+        <li>In <span class="path">FTManager ￫ General Settings ￫ Scheduled Video Download</span>, click <strong>Add</strong>:
+            <ol type="a">
+                <li>set task name, execution cycle, download time, stream type, upload channel, etc.;</li>
+                <li>choose the applicable fleets or vehicles.</li>
+            </ol>
+        </li>
+        <li>During the configured execution cycle, video clipping tasks are generated; scheduled downloads can be viewed under <span class="path">Task Details ￫ Task List</span>, and the resulting videos appear in <span class="path">FTVision ￫ Evidence ￫ Video Library</span>.</li>
+    </ol>
+
+    <h3>5. Download While Viewing and Recording</h3>
+    <ol>
+        <li>In <span class="path">FTVision ￫ Live View ￫ Vehicle Monitoring</span>, open <strong>Live Video</strong> for direct streaming; once loaded, click <strong>Record while Viewing</strong> to start recording, click again to stop, enter a video name in the confirmation popup, and the created clipping task is visible in the <span class="path">Video Library</span>.</li>
+    </ol>
+</body>
+</html>
+```
