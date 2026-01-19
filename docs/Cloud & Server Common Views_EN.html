@@ -68,6 +68,10 @@
             margin-top: 1rem;
             border-left: 3px solid #007bff;
         }
+        .highlight {
+            color: #dc3545;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -129,27 +133,24 @@
         <h2>3. Customer-owned infrastructure</h2>
         <p><strong>The dedicated FT-Cloud instance must be deployed and operated in:</strong></p>
         <ul>
-            <li>the customer’s own data center or - Yes, physical computer</li>
-            <li>the customer’s own cloud project (e.g. Google Cloud, Azure, AWS) - Recommend</li>
+            <li>the customer’s own data center or - <span class="highlight">Yes</span>, physical computer</li>
+            <li>the customer’s own cloud project (e.g. Google Cloud, Azure, AWS) - <span class="highlight">Recommend</span></li>
         </ul>
         
-        <p><strong>be fully under the customer’s control regarding: - Yes</strong></p>
+        <p><strong>be fully under the customer’s control regarding: - <span class="highlight">Yes</span></strong></p>
         <ul>
             <li>network configuration</li>
             <li>firewall rules</li>
             <li>routing policies</li>
         </ul>
         
-        <p>The customer must be able to technically verify that no outbound traffic to Streamax IP ranges is required for media or metadata transmission. - No</p>
-        
-        <h3>Common views:</h3>
-        <p>-</p>
+        <p>The customer must be able to technically verify that no outbound traffic to Streamax IP ranges is required for media or metadata transmission. - <span class="highlight">No</span></p>
     </div>
 
     <!-- Section 4 -->
     <div class="section">
-        <h2>4. No hidden or automatic data transmission - No</h2>
-        <p><strong>The FT-Cloud solution must not include: - No, not include</strong></p>
+        <h2>4. No hidden or automatic data transmission - <span class="highlight">No</span></h2>
+        <p><strong>The FT-Cloud solution must not include: - <span class="highlight">No, not include</span></strong></p>
         <ul>
             <li>hidden data transfers</li>
             <li>background mirroring</li>
@@ -163,33 +164,27 @@
             <li>configurable</li>
             <li>free of customer data</li>
         </ul>
-        
-        <h3>Common views:</h3>
-        <p>-</p>
     </div>
 
     <!-- Section 5 -->
     <div class="section">
-        <h2>5. Access control and accounts - Yes</h2>
+        <h2>5. Access control and accounts - <span class="highlight">Yes</span></h2>
         <p>All user accounts, roles, and permissions must be created and managed exclusively by the customer.</p>
         
-        <p><strong>Streamax must not have: - No</strong></p>
+        <p><strong>Streamax must not have: - <span class="highlight">No</span></strong></p>
         <ul>
             <li>permanent administrator accounts</li>
             <li>predefined support accounts</li>
             <li>backdoor or emergency access</li>
         </ul>
         
-        <p><strong>If temporary support access is required, it must: - Yes</strong></p>
+        <p><strong>If temporary support access is required, it must: - <span class="highlight">Yes</span></strong></p>
         <ul>
             <li>be initiated by the customer</li>
             <li>be time-limited</li>
             <li>be fully logged</li>
             <li>be revocable immediately by the customer</li>
         </ul>
-        
-        <h3>Common views:</h3>
-        <p>-</p>
     </div>
 
     <!-- Section 6 -->
@@ -206,7 +201,7 @@
         </ul>
         
         <h3>Common views:</h3>
-        <p>No, only under permission if really needed.</p>
+        <p><span class="highlight">No</span>, only under permission if really needed.</p>
     </div>
 
     <!-- Section 7 -->
