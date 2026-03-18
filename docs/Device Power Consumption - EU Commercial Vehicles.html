@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Power Consumption - EU Commercial Vehicles</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #24292e;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3, h4 {
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: 0.3em;
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 16px 0;
+        }
+        table th, table td {
+            border: 1px solid #d0d7de;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        .note {
+            background-color: #fef7fb;
+            border-left: 4px solid #9333ea;
+            padding: 12px 16px;
+            margin: 16px 0;
+        }
+        .summary-box {
+            background-color: #f0f8fb;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Device Power Consumption Calculation for EU Commercial Vehicles</h1>
+
+    <h2>1. Power Consumption Specifications</h2>
+    <ul>
+        <li>AOV mode: approx. <strong>500 mW</strong></li>
+        <li>Typical power consumption (with SD cards installed + SIM card dial-up): approx. <strong>3.2 W</strong></li>
+        <li>Full-load power consumption (SD cards + SIM dial-up + 4G streaming media preview + WiFi mobile connection + video preview): approx. <strong>5 W</strong></li>
+    </ul>
+    <div class="note">
+        <strong>Note:</strong> The above data are laboratory test results under specific conditions. Actual values may vary due to product differences, operating environment and test methods.
+    </div>
+
+    <h2>2. Standard Starting Batteries for EU Commercial Vehicles</h2>
+    <ul>
+        <li>Light commercial van / truck: <strong>12 V system</strong> (80 Ah / 100 Ah / 120 Ah)</li>
+        <li>Heavy-duty truck: <strong>24 V system</strong> (100 Ah / 180 Ah / 225 Ah)</li>
+    </ul>
+
+    <h2>3. Calculation Formula</h2>
+    <p><strong>Operating Time (H) = Battery Voltage (V) × Battery Capacity (mAh) ÷ Power Consumption (mW)</strong></p>
+
+    <h2>4. Theoretical Operating Time</h2>
+    
+    <h3>4.1 12V Light Commercial Vehicle Batteries</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Battery Specification</th>
+                <th>AOV (500 mW)</th>
+                <th>Typical (3.2 W)</th>
+                <th>Full-load (5 W)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>12V 80Ah</td>
+                <td>1920 hours (80 days)</td>
+                <td>300 hours (12.5 days)</td>
+                <td>192 hours (8 days)</td>
+            </tr>
+            <tr>
+                <td>12V 100Ah</td>
+                <td>2400 hours (100 days)</td>
+                <td>375 hours (15.6 days)</td>
+                <td>240 hours (10 days)</td>
+            </tr>
+            <tr>
+                <td>12V 120Ah</td>
+                <td>2880 hours (120 days)</td>
+                <td>450 hours (18.75 days)</td>
+                <td>288 hours (12 days)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>4.2 24V Heavy-Duty Truck Batteries</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Battery Specification</th>
+                <th>AOV (500 mW)</th>
+                <th>Typical (3.2 W)</th>
+                <th>Full-load (5 W)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>24V 100Ah</td>
+                <td>4800 hours (200 days)</td>
+                <td>750 hours (31.25 days)</td>
+                <td>480 hours (20 days)</td>
+            </tr>
+            <tr>
+                <td>24V 180Ah</td>
+                <td>8640 hours (360 days)</td>
+                <td>1350 hours (56.25 days)</td>
+                <td>864 hours (36 days)</td>
+            </tr>
+            <tr>
+                <td>24V 225Ah</td>
+                <td>10800 hours (450 days)</td>
+                <td>1687.5 hours (70.3 days)</td>
+                <td>1080 hours (45 days)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="summary-box">
+        <h3>5. Key Summary</h3>
+        <ul>
+            <li>AOV low-power mode: <strong>dozens to hundreds of days</strong></li>
+            <li>Typical operating mode: <strong>10–70 days</strong></li>
+            <li>Full-load streaming mode: <strong>8–45 days</strong></li>
+        </ul>
+    </div>
+</body>
+</html>
