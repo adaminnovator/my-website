@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TarGraph FMS Driver ID Recognition Process</title>
+    <style>
+        /* Basic page styling for readability */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            background-color: #f9f9f9;
+        }
+
+        /* Headings */
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+        }
+
+        h2 {
+            color: #2980b9;
+            margin: 2.5rem 0 1rem;
+            padding-left: 0.5rem;
+            border-left: 4px solid #3498db;
+        }
+
+        /* Horizontal divider */
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 2rem 0;
+        }
+
+        /* Lists */
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Bold text styling */
+        strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        /* Final summary paragraph */
+        .final-summary {
+            font-size: 1.05rem;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #e3f2fd;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TarGraph FMS Driver ID Recognition for EU Standard Trucks</h1>
+
+    <h2>Summary</h2>
+    <p>The content details the <strong>process for recognizing driver IDs on TarGraph systems integrated with FMS (Fleet Management System)</strong> devices installed on European trucks that comply with EU standards. The explanation covers preconditions, platform setup, device compatibility, configuration steps, data verification, and hardware connection specifics.</p>
+
+    <hr>
+
+    <h2>Preconditions and Vehicle Requirements</h2>
+    <ul>
+        <li>The system applies only to <strong>European trucks over 3.5 tons equipped with EU-standard TarGraph devices</strong>.</li>
+        <li>The truck must have an <strong>FMS-enabled system</strong> installed and activated.</li>
+        <li>Activation of FMS may depend on the vehicle supplier or dealer; some dealers charge to enable it at the point of sale.</li>
+        <li>Both the <strong>TarGraph device and FMS system must be active</strong> for the driver ID recognition process to function properly.</li>
+    </ul>
+
+    <hr>
+
+    <h2>Platform Configuration</h2>
+    <ul>
+        <li>The platform requires tenant users to <strong>enable the FTC (Function Package) for CAN ID recognition</strong>.</li>
+        <li>The driver recognition method must be set to <strong>dynamic recognition using FMSCAN driver ID</strong>.</li>
+        <li>When adding a driver on the platform, the <strong>driver card number must exactly match the TarGraph ID card number read from the device</strong>.</li>
+        <li>The driver card ID format generally includes:
+            <ul>
+                <li>A <strong>country code prefix</strong></li>
+                <li>A space or multiple spaces</li>
+                <li>Followed by a string of digits</li>
+            </ul>
+        </li>
+        <li>The platform verifies the driver ID by matching it with the ID read from the vehicle’s device.</li>
+    </ul>
+
+    <hr>
+
+    <h2>Device Compatibility and Setup</h2>
+    <ul>
+        <li>Supported devices must have <strong>software version 2.4.5 or higher</strong>, including:
+            <ul>
+                <li>C6 Lite 2.0</li>
+                <li>AD Plus</li>
+                <li>M1 2.0</li>
+            </ul>
+        </li>
+        <li>In the device settings, under "collection," select <strong>FMS protocol</strong>.</li>
+        <li>The <strong>baud rate</strong> should correspond to the truck’s CAN bus speed, usually <strong>250 kbps</strong> but can vary.</li>
+        <li>The <strong>data upload interval</strong> defaults to 300 seconds but can be adjusted (customers typically set it around 60 seconds, with a minimum of 15 seconds).</li>
+    </ul>
+
+    <hr>
+
+    <h2>Data Verification and Logs</h2>
+    <ul>
+        <li>After configuration, the <strong>operation log</strong> on the device interface will show the detected driver card number if reading is successful.</li>
+        <li>Successful display of the driver card number confirms the device is correctly receiving FMS data.</li>
+        <li>The FMS connection can be verified using default flashing tools or customized FMS cables.</li>
+    </ul>
+
+    <hr>
+
+    <h2>Hardware Connection Details</h2>
+    <ul>
+        <li>FMS connectors use a <strong>standard green 12-pin connector</strong>.</li>
+        <li>If a vehicle has the FMS connector, it is generally compatible across different devices.</li>
+        <li>There is a distinction between cables for <strong>HFG with C220 chips</strong> and <strong>AD Plus devices</strong>:
+            <ul>
+                <li>Both cables appear similar but have different chip definitions.</li>
+                <li>Labels help differentiate: cables marked <strong>C220</strong> vs. those without labels for AD Plus220.</li>
+            </ul>
+        </li>
+        <li>A critical installation detail involves a <strong>small resistor</strong> in the FMS line:
+            <ul>
+                <li>Depending on the vehicle, the resistor may need to be cut or kept.</li>
+                <li>This depends on whether the vehicle and devices already have termination resistors.</li>
+                <li>Installers must measure the resistance on both ends of the CAN bus to decide on resistor removal or retention.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <hr>
+
+    <h2>Key Insights</h2>
+    <ul>
+        <li><strong>Strict matching of driver card IDs between TarGraph and platform is essential</strong> for accurate driver recognition.</li>
+        <li>The <strong>software and hardware compatibility</strong> of devices and vehicles is crucial for system success.</li>
+        <li><strong>Physical connection nuances</strong>, especially regarding resistors and cable types, significantly affect FMS data collection.</li>
+        <li>The system primarily supports <strong>European trucks over 3.5 tons with EU-standard TarGraph and active FMS</strong>.</li>
+        <li>The <strong>platform and device configurations must be carefully coordinated</strong> to ensure driver IDs are dynamically and correctly recognized.</li>
+    </ul>
+
+    <hr>
+
+    <h2>Summary Table: Device and Software Compatibility</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Device Model</th>
+                <th>Minimum Software Version</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>C6 Lite</td>
+                <td>2.4.5</td>
+                <td>Supported</td>
+            </tr>
+            <tr>
+                <td>AD Plus</td>
+                <td>2.4.5</td>
+                <td>Supported</td>
+            </tr>
+            <tr>
+                <td>M1</td>
+                <td>2.0</td>
+                <td>Supported</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Summary Table: Configuration Parameters</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Recommended Setting</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Collection Protocol</td>
+                <td>FMS</td>
+                <td>Select in device settings</td>
+            </tr>
+            <tr>
+                <td>Baud Rate</td>
+                <td>Typically 250 kbps</td>
+                <td>Depends on vehicle’s CAN bus rate</td>
+            </tr>
+            <tr>
+                <td>Upload Interval (sec)</td>
+                <td>Default 300, typical 60, min 15</td>
+                <td>Adjust to customer preference</td>
+            </tr>
+            <tr>
+                <td>Driver Recognition</td>
+                <td>Dynamic Recognition (FMSCAN ID)</td>
+                <td>Set on platform</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <p class="final-summary">This summary provides a comprehensive overview of the <strong>FMS driver ID recognition process on TarGraph-equipped European trucks</strong>, emphasizing system requirements, configuration, verification, and critical hardware considerations.</p>
+
+</body>
+</html>
